@@ -148,6 +148,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        crocodicstudio\dokularavel\DokuLaravelServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
