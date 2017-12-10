@@ -67,7 +67,8 @@ class ProductController extends Controller
         }, $cart->items);
 
         $basket = implode(";", $basket);
-        $tmerchant = "1"; //product_id di database
+        $tmerchant = "INVBUSET"; //product_id di database
+        $total = number_format($total, 2, ".", "");
 
     	return view('shop.checkout', [
             'total' => $total,
@@ -85,38 +86,37 @@ class ProductController extends Controller
       $all = $req->all();
 
       $notify = Session::get('status');
-      dd($notify);
+      //dd($all);
+
+      if($all['STATUSCODE'] == "0000") {
+        return redirect("/payment/success");
+      } else {
+        return redirect("/payment/failed");
+      }
     }
 
     public function postNotify(Request $req)
     {
-      $all = $req->all();
-      if (!Session::has('cart')) {
-            return redirect()->route('product.index');
-        }
+        $all = $req->all();
 
-        $oldCart = Session::get('cart');
-        $cart = new Cart($oldCart);
-        $total = $cart->totalPrice;
-        $tmerchant = 1;
+        $tmerchant = "INV012017";
+        $total = number_format($all['AMOUNT'], 2, ".", "");
 
-      $WORDS_GENERATED = sha1($total . $this->mallid . $this->skey . $tmerchant);
-      if ( $all->WORDS == $WORDS_GENERATED )
+        $WORDS_GENERATED = sha1($all['AMOUNT'] . "10956732" .  "L7G4u6g8K2F9" . $all['TRANSIDMERCHANT'] . $all['RESULTMSG'] . $all['VERIFYSTATUS']);
+
+
+        if ( $all['WORDS'] == $WORDS_GENERATED )
         {
             echo "CONTINUE";
-            if ($all->RESULTMSG == 'SUCCESS')
-                {
-                    $req->session()->put('status', 'Payment Success');
-                }
-            else
-                {
-                    $req->session()->put('status', 'Payment Failed');
+            if ($all['RESULTMSG'] == 'SUCCESS'){
+                    //$req->session()->put('status', 'Payment Success');
+            } else{
+                   // $req->session()->put('status', 'Payment Failed');
                 }
         }
         else
         {
-            // echo "STOP - WORDS NOT MATCH";
-            $req->session()->put('status', 'masuk gagal');
+            echo "STOP - WORDS NOT MATCH";
         }
     }
 }

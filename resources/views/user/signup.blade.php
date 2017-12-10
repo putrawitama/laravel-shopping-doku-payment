@@ -110,18 +110,4 @@
             </div>
         </div>
     </div>
-=======
-	</div>
-@endsection
-
-@section('scripts')
-<script>
-$(function(){
-	$('#refresh-captcha').click(function(){
-		var url = $('#captcha').attr('src') + Math.floor((Math.random() * 100) + 1);
-		$('#captcha').attr('src', url);
-	});
-})
-</script>
->>>>>>> 9f7a9e83d99de533ff57382dfd3a9243b3fb36f3
 @endsection
