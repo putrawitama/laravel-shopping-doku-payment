@@ -19,7 +19,7 @@ return [
 	*/
 	'PAYMENT_PATH' => 'dokularavel',
 	'SHARED_KEY'   => 'L7G4u6g8K2F9', 
-	'MALL_ID'      => NULL,
+	'MALL_ID'      => '10956732',
 	'PERMATA_CODE' => NULL,
 	'CURRENCY'	   => 360,
 	'NOTIFY_SCREET_CODE'=>'123456',

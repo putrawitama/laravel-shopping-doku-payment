@@ -49,6 +49,41 @@ class ProductController extends Controller
     	$oldCart = Session::get('cart');
     	$cart = new Cart($oldCart);
     	$total = $cart->totalPrice;
-    	return view('shop.checkout', ['total' => $total]);
+
+        // WORDS = sha1 (AMOUNT + MALLID + Shared Key + TRANSIDMERCHANT) 
+
+        /**
+        <form action="http://staging.doku.com/Suite/Receive" method="post" id="form1" name="form1">
+            <input name="MALLID" type="hidden" value="2045" >
+            <input name="BASKET" type="hidden" value="testing item,10000.00,1,10000.00" >
+            <input name="CHAINMERCHANT" type="hidden" value="NA" >
+            <input name="AMOUNT" type="hidden" value="10000.00" >
+            <input name="PURCHASEAMOUNT" type="hidden" value="10000.00" >
+            <input name="TRANSIDMERCHANT" type="hidden" value="SaZyxLAvBJT9" >
+            <input name="WORDS" type="hidden" value="bf60356e2e41eff0d561c88e8b4386dc496b48ff" >
+            <input name="CURRENCY" type="hidden" value="360" >
+            <input name="PURCHASECURRENCY" type="hidden" value="360" >
+            <input name="COUNTRY" type="hidden" value="ID" >
+            <input name="SESSIONID" type="hidden" value="234asdf234" >
+            <input name="REQUESTDATETIME" type="hidden" value="20151212000000" >
+            <input name="NAME" type="hidden" value="Customer Name" >
+            <input name="EMAIL" type="hidden" value="customer@domain.com">
+             <input name="PAYMENTCHANNEL" type="hidden" value="15" >
+        </form>
+        **/
+
+        $amount = "50000"; // 5rb
+        $mallid = "10956732";
+        $skey = "L7G4u6g8K2F9";
+        $tmerchant = "1"; //product_id di database
+
+    	return view('shop.checkout', [
+            'total' => $total,
+            'WORDS' => sha1($amount . $mallid . $skey . $tmerchant),
+            'amount' => $amount,
+            'mallid' => $mallid,
+            'skey' => $skey,
+            'tmerchant' => $tmerchant
+        ]);
     }
 }
