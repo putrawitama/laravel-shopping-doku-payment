@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', [
 	'uses' => 'ProductController@getIndex',
 	'as' => 'product.index'
@@ -82,3 +83,4 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	});
 });
 
+// Route::get('/captcha-test', 'UserController@captcha');

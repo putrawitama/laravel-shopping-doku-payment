@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Auth;
 use Mail;
+use Form;
+use URL;
 
 class UserController extends Controller
 {
@@ -21,7 +23,8 @@ class UserController extends Controller
     	$this->validate($req, [
     			'email' => 'email|required|unique:users',
     			'password' => 'required|min:6',
-    			'password_verify' => 'required|min:6|same:password'
+    			'password_verify' => 'required|min:6|same:password',
+    			'captcha' => 'required|captcha'
     		]);
 
 		$verificationToken = str_random();
@@ -32,7 +35,7 @@ class UserController extends Controller
 			'verification_token' => $verificationToken
     		]);
 			
-			
+		// echo 'best match!!';
 		if($user->save()){
 
 			$verificationLink = route('user.verifyUser', ['id' => $user->id, 'token' => $verificationToken]);
@@ -127,5 +130,6 @@ class UserController extends Controller
     {
     	Auth::logout();
     	return redirect()->back();
-    }
+	}
+	
 }
