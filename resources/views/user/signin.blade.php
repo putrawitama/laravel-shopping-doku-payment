@@ -111,7 +111,7 @@
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1" class="text-uppercase">Password</label>
-							<input type="password" class="form-control" placeholder="">
+							<input type="password" class="form-control" placeholder="" name="password">
 						</div>
 						<div class="form-check">
 							<label class="form-check-label">

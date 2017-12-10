@@ -37,7 +37,6 @@
 				{{ csrf_field() }}
 			</form>
 		</div>
-<<<<<<< HEAD
 	</div> -->
 
 	<div class="row" style="padding-top: 30px">
@@ -110,7 +109,6 @@
             </div>
         </div>
     </div>
-=======
 	</div>
 @endsection
 
@@ -123,5 +121,4 @@ $(function(){
 	});
 })
 </script>
->>>>>>> 9f7a9e83d99de533ff57382dfd3a9243b3fb36f3
 @endsection

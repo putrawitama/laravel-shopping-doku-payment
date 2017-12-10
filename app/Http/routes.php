@@ -32,20 +32,7 @@ Route::get('/pdf', [
 	'as' => 'product.pdf'
 ]);
 
-Route::get('/admin/product-list', [
-	'uses' => 'ProductController@getProduct',
-	'as' => 'product.view'
-]);
 
-Route::get('/admin/manage-product',[
-	'uses' => 'ProductController@create',
-	'as' => 'create'
-]);
-
-Route::post('/admin/manage-product',[
-	'uses' => 'ProductController@store',
-	'as' => 'store'
-]);
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	Route::group(['middleware' => 'guest'], function() {
@@ -109,6 +96,20 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 			Route::get('admin', [
 				'uses' => 'AdminController@getAdmin',
 				'as' => 'admin'
+			]);
+			Route::get('admin/product-list', [
+				'uses' => 'ProductController@getProduct',
+				'as' => 'admin.product.view'
+			]);
+			
+			Route::get('admin/manage-product',[
+				'uses' => 'ProductController@create',
+				'as' => 'admin.create'
+			]);
+			
+			Route::post('admin/manage-product',[
+				'uses' => 'ProductController@store',
+				'as' => 'admin.store'
 			]);
 		});
 
