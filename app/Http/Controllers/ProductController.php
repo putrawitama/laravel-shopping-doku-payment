@@ -17,6 +17,13 @@ class ProductController extends Controller
     	return view('shop.index', ['products' => $products]);
     }
 
+    public function getProduct()
+    {
+        $products = Product::all();
+        // dd($products);
+        return view('admin.page.product-list', ['products' => $products]);
+    }
+
     public function getAddToCart(Request $req, $id)
     {
     	$product = Product::find($id);
@@ -50,5 +57,24 @@ class ProductController extends Controller
     	$cart = new Cart($oldCart);
     	$total = $cart->totalPrice;
     	return view('shop.checkout', ['total' => $total]);
+    }
+
+    public function create()
+    {
+        return view('admin.page.manage-product');
+    }
+
+    public function store(Request $request)
+    {
+        $products = new Product;
+        $products->title = $request->title;
+        $products->price = $request->price;
+        $products->description = $request->description;
+        $products->imagePath = $request->imagePath;
+        $file       = $request->file('imagePath');
+        $request->file("/public/uploads", $file->getClientOriginalName());
+        $products->save();
+
+        return view('admin.page.manage-product');
     }
 }
