@@ -41,7 +41,7 @@ class UserController extends Controller
 			$verificationLink = route('user.verifyUser', ['id' => $user->id, 'token' => $verificationToken]);
 			Mail::send('mails.userVerification', ['verificationLink' => $verificationLink], function($message) use($req){
                     $message->to($req->email)->subject('Email Verifikasi');
-                    $message->from('muktikun@gmail.com', 'Roppa');
+                    $message->from('pfw2017k05@gmail.com', 'KC');
                 }
             );
 
