@@ -2,8 +2,8 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<h1>User Data</h1>
+		<div class="col-md-6 offset-md-3" style="padding-top:80px;">
+			<h1 class="text-center">User Data</h1>
 
 			@if(count($errors) > 0)
 				<div class="alert alert-danger">

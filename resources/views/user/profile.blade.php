@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-md-4 col-md-offset-4 text-center">
+		<div class="col-md-4 offset-md-4 text-center" style="padding-top:80px;">
 			<h1>User Profile</h1>
 			<p class="text-left">Nama: {{ $fullname }}</p>
 			<p class="text-left">Alamat: {{ $address }}</p>

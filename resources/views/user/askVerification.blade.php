@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3 text-center">
+		<div class="col-md-6 offset-md-3 text-center" style="padding-top:80px;">
 			<h1>Anda telah berhasil tedaftar!</h1>
 			<p>Kami telah mengirimkan email verifikasi ke email anda. Silakan untuk mengecek inbox anda. Jika email belum terkirim, isikan email anda di bawah ini untuk mengirim ulang email verifikasi.</p>
 			<form action=" {{ route('user.resendVerificationToken') }} " method="post">

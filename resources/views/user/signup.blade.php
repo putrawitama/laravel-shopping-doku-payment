@@ -44,9 +44,6 @@
                 <p style="text-align: center; padding-top: 35px">
                     <img src="{{ asset('img/logo.png') }}" width="200" height="55" class="d-inline-block align-top" alt="Logo">
                 </p>
-                <p style="text-align: center; font-size: large; ">
-                    <strong>DAFTAR DI FATHUR-PEDIA</strong>
-                </p>
                 <p style="text-align: center;">
                     Sudah punya akun? Masuk <a href="{{route('user.signin')}}" style="color: #e89e30">disini</a>
                 </p>
@@ -101,6 +98,22 @@
                                     <input type="password" class="form-control" id="password" name="password" required>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="">Konfirmasi Kata Sandi</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-unlock-alt" style="font-size: 27px"></i>
+                                    </div>
+                                    <input type="password" class="form-control" id="password-verify" name="password_verify" required>
+                                </div>
+                            </div>
+							<div class="form-group text-center">
+								<img id="captcha" src="{{ Captcha::url() }}" alt="">
+								<a id="refresh-captcha" class="btn btn-default" href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" id="captcha" name="captcha">
+							</div>
                             <button type="submit" class="btn btn-warning" style="width: 100%; padding-top: 10px">Daftar Akun</button>
                             {{ csrf_field() }}
                         </form>
