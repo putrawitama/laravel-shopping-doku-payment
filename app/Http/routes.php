@@ -38,38 +38,53 @@ Route::post('/checkout', [
 	'middleware' => 'auth'
 ]);
 
-Route::group(['prefix' => 'user'], function() {
+Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	Route::group(['middleware' => 'guest'], function() {
-		Route::get('/signup', [
+		Route::get('signup', [
 			'uses' => 'UserController@getSignup',
-			'as' => 'user.signup'
+			'as' => 'signup'
 		]);
-
-		Route::post('/signup', [
+		
+		Route::post('signup', [
 			'uses' => 'UserController@postSignup',
-			'as' => 'user.signup'
+			'as' => 'signup'
+			]);
+			
+		Route::get('askverification', [
+			'uses' => 'UserController@askVerification',
+			'as' => 'askVerification'
 		]);
 
-		Route::get('/signin', [
+		Route::post('resendverificationtoken', [
+			'uses' => 'UserController@resendVerificationToken',
+			'as' => 'resendVerificationToken'
+		]);
+			
+		Route::get('verifyuser/{id}/{token}', [
+			'uses' => 'UserController@verifyUser',
+			'as' => 'verifyUser'
+		]);
+
+		Route::get('signin', [
 			'uses' => 'UserController@getSignin',
-			'as' => 'user.signin'
+			'as' => 'signin'
 		]);
 
-		Route::post('/signin', [
+		Route::post('signin', [
 			'uses' => 'UserController@postSignin',
-			'as' => 'user.signin'
+			'as' => 'signin'
 		]);
 	});
 
 	Route::group(['middleware' => 'auth'], function() {
-		Route::get('/profile', [
+		Route::get('profile', [
 			'uses' => 'UserController@getProfile',
-			'as' => 'user.profile'
+			'as' => 'profile'
 		]);
 
-		Route::get('/logout', [
+		Route::get('logout', [
 			'uses' => 'UserController@getLogout',
-			'as' => 'user.logout'
+			'as' => 'logout'
 		]);
 
 		
