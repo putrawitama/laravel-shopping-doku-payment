@@ -87,6 +87,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 			'as' => 'signin'
 		]);
 	});
+	
 
 	Route::group(['middleware' => 'auth'], function() {
 		Route::group(['middleware' => 'user'], function(){
