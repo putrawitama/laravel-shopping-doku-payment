@@ -27,6 +27,22 @@ Route::get('/shopping-cart', [
 	'as' => 'product.shoppingCart'
 ]);
 
+Route::get('/checkout', [
+	'uses' => 'ProductController@getCheckout',
+	'as' => 'checkout',
+	'middleware' => 'auth'
+]);
+
+Route::post('/redirect', [
+	'uses' => 'ProductController@postRedirect',
+	'as' => 'redirect'
+]);
+
+Route::post('/notify', [
+	'uses' => 'ProductController@postNotify',
+	'as' => 'notify'
+]);
+
 Route::get('/pdf', [
 	'uses' => 'ProductController@pdf',
 	'as' => 'product.pdf'

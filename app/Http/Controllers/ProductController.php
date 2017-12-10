@@ -12,6 +12,15 @@ use Fpdf;
 
 class ProductController extends Controller
 {
+    public $mallid;
+    public $sKey;
+
+    function __construct()
+    {
+        $this->mallid = "10956732";
+        $this->skey = "L7G4u6g8K2F9";
+    }
+
     public function getIndex()
     {
     	$products = Product::all();
@@ -57,7 +66,66 @@ class ProductController extends Controller
     	$oldCart = Session::get('cart');
     	$cart = new Cart($oldCart);
     	$total = $cart->totalPrice;
-    	return view('shop.checkout', ['total' => $total]);
+
+       // dd($cart);
+
+        $basket = array_map(function($item) {
+
+            return $item['item']->title . "," . $item['item']->price . ",".$item['qty']."," . ($item['price']);
+        }, $cart->items);
+
+        $basket = implode(";", $basket);
+        $tmerchant = "INVBUSET"; //product_id di database
+        $total = number_format($total, 2, ".", "");
+
+    	return view('shop.checkout', [
+            'total' => $total,
+            'WORDS' => sha1($total . $this->mallid . $this->skey . $tmerchant),
+            'amount' => $total,
+            'mallid' => $this->mallid,
+            'skey' => $this->skey,
+            'tmerchant' => $tmerchant,
+            'basket' => $basket
+        ]);
+    }
+
+    public function postRedirect(Request $req)
+    {
+      $all = $req->all();
+
+      $notify = Session::get('status');
+      //dd($all);
+
+      if($all['STATUSCODE'] == "0000") {
+        return redirect("/payment/success");
+      } else {
+        return redirect("/checkout");
+      }
+    }
+
+    public function postNotify(Request $req)
+    {
+        $all = $req->all();
+
+        $tmerchant = "INV012017";
+        $total = number_format($all['AMOUNT'], 2, ".", "");
+
+        $WORDS_GENERATED = sha1($all['AMOUNT'] . "10956732" .  "L7G4u6g8K2F9" . $all['TRANSIDMERCHANT'] . $all['RESULTMSG'] . $all['VERIFYSTATUS']);
+
+
+        if ( $all['WORDS'] == $WORDS_GENERATED )
+        {
+            echo "CONTINUE";
+            if ($all['RESULTMSG'] == 'SUCCESS'){
+                    //$req->session()->put('status', 'Payment Success');
+            } else{
+                   // $req->session()->put('status', 'Payment Failed');
+                }
+        }
+        else
+        {
+            echo "STOP - WORDS NOT MATCH";
+        }
     }
 
     public function create()
