@@ -32,6 +32,11 @@ Route::get('/checkout', [
 	'as' => 'checkout'
 ]);
 
+Route::get('/admin', [
+	'uses' => 'AdminController@getAdmin',
+	'as' => 'admin'
+]);
+
 Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	Route::group(['middleware' => 'guest'], function() {
 		Route::get('signup', [
