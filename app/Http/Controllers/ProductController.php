@@ -50,6 +50,15 @@ class ProductController extends Controller
     	$cart = new Cart($oldCart);
     	$total = $cart->totalPrice;
 
+       // dd($cart);
+
+        $basket = array_map(function($item) {
+
+            return $item['item']->title . "," . $item['item']->price . ",".$item['qty']."," . ($item['price']);
+        }, $cart->items);
+
+        $basket = implode(";", $basket);
+
         // WORDS = sha1 (AMOUNT + MALLID + Shared Key + TRANSIDMERCHANT) 
 
         /**
@@ -72,18 +81,43 @@ class ProductController extends Controller
         </form>
         **/
 
-        $amount = "50000"; // 5rb
+     //    $amount = "50000"; // 5rb
         $mallid = "10956732";
         $skey = "L7G4u6g8K2F9";
         $tmerchant = "1"; //product_id di database
 
     	return view('shop.checkout', [
             'total' => $total,
-            'WORDS' => sha1($amount . $mallid . $skey . $tmerchant),
-            'amount' => $amount,
+            'WORDS' => sha1($total . $mallid . $skey . $tmerchant),
+            'amount' => $total,
             'mallid' => $mallid,
             'skey' => $skey,
-            'tmerchant' => $tmerchant
+            'tmerchant' => $tmerchant,
+            'basket' => $basket
         ]);
+    }
+
+    public function postCheckout(Request $req)
+    {
+      $all = $req->all();
+
+      dd($all);
+
+      if ( $WORDS == $WORDS_GENERATED )
+        {
+            echo "CONTINUE";
+            if ($RESULTMSG == 'SUCCESS')
+                {
+                //Flag the transaction to success.
+                }
+            else
+                {
+                //Flag the transaction to failed
+                }
+        }
+        else
+        {
+            echo "STOP - WORDS NOT MATCH";
+        }
     }
 }
