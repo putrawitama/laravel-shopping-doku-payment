@@ -81,6 +81,16 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 			'as' => 'profile'
 		]);
 
+		Route::get('setbio', [
+			'uses' => 'UserController@setBio',
+			'as' => 'setbio'
+		]);
+
+		Route::post('setbio', [
+			'uses' => 'UserController@storeBio',
+			'as' => 'setbio'
+		]);
+
 		Route::get('logout', [
 			'uses' => 'UserController@getLogout',
 			'as' => 'logout'

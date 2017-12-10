@@ -93,9 +93,22 @@ class UserController extends Controller
 		if($user->verification_token === $token){
 			$user->verified = 1;
 			$user->save();
+			Auth::login($user);
 		}
 
-		return redirect()->route('product.index');
+		return redirect()->route('user.setbio');
+
+	}
+
+	public function setBio(){
+
+		return view('user.setBio');
+
+	}
+
+	public function storeBio(Request $request){
+
+		dd($request);
 
 	}
 
