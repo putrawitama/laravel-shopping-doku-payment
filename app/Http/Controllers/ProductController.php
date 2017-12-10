@@ -99,7 +99,7 @@ class ProductController extends Controller
       if($all['STATUSCODE'] == "0000") {
         return redirect("/payment/success");
       } else {
-        return redirect("/payment/failed");
+        return redirect("/checkout");
       }
     }
 
