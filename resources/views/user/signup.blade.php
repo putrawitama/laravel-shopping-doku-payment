@@ -21,6 +21,10 @@
 					<label for="password">Password</label>
 					<input class="form-control" type="password" id="password" name="password">
 				</div>
+				<div class="form-group">
+					<label for="password-verify">Password</label>
+					<input class="form-control" type="password" id="password-verify" name="password_verify">
+				</div>
 				<button type="submit" class="btn btn-primary">Sign Up</button>
 				{{ csrf_field() }}
 			</form>
