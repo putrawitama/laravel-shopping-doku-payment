@@ -32,10 +32,14 @@ Route::get('/checkout', [
 	'middleware' => 'auth'
 ]);
 
-Route::post('/checkout', [
-	'uses' => 'ProductController@postCheckout',
-	'as' => 'checkout',
-	'middleware' => 'auth'
+Route::post('/redirect', [
+	'uses' => 'ProductController@postRedirect',
+	'as' => 'redirect'
+]);
+
+Route::post('/notify', [
+	'uses' => 'ProductController@postNotify',
+	'as' => 'notify'
 ]);
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
@@ -86,13 +90,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 			'uses' => 'UserController@getLogout',
 			'as' => 'logout'
 		]);
-
-		
-
-		// Route::post('/notify', [
-		// 	'uses' => 'ProductController@postCheckout',
-		// 	'as' => 'notify'
-		// ]);
 	});
 });
 
