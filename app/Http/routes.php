@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', [
 	'uses' => 'ProductController@getIndex',
 	'as' => 'product.index'
@@ -40,6 +41,11 @@ Route::post('/redirect', [
 Route::post('/notify', [
 	'uses' => 'ProductController@postNotify',
 	'as' => 'notify'
+]);
+
+Route::get('/admin', [
+	'uses' => 'AdminController@getAdmin',
+	'as' => 'admin'
 ]);
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
@@ -93,3 +99,4 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	});
 });
 
+// Route::get('/captcha-test', 'UserController@captcha');

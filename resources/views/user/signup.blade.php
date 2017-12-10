@@ -22,12 +22,30 @@
 					<input class="form-control" type="password" id="password" name="password">
 				</div>
 				<div class="form-group">
-					<label for="password-verify">Password</label>
+					<label for="password-verify">Password Verification</label>
 					<input class="form-control" type="password" id="password-verify" name="password_verify">
+				</div>
+				<div class="form-group text-center">
+					<img id="captcha" src="{{ Captcha::url() }}" alt="">
+					<a id="refresh-captcha" class="btn btn-default" href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="text" id="captcha" name="captcha">
 				</div>
 				<button type="submit" class="btn btn-primary">Sign Up</button>
 				{{ csrf_field() }}
 			</form>
 		</div>
 	</div>
+@endsection
+
+@section('scripts')
+<script>
+$(function(){
+	$('#refresh-captcha').click(function(){
+		var url = $('#captcha').attr('src') + Math.floor((Math.random() * 100) + 1);
+		$('#captcha').attr('src', url);
+	});
+})
+</script>
 @endsection
