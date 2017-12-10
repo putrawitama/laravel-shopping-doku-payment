@@ -2044,8 +2044,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xroot/laravel-fpdf/zipball/1a357759191cfd8506c7ef6669d0406bcf7b289b",
-                "reference": "1a357759191cfd8506c7ef6669d0406bcf7b289b",
+                "url": "https://api.github.com/repos/xroot/laravel-fpdf/zipball/master",
+                "reference": "master",
                 "shasum": ""
             },
             "require": {
