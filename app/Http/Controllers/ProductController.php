@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Session;
+use Fpdf;
 
 class ProductController extends Controller
 {
@@ -77,4 +78,12 @@ class ProductController extends Controller
 
         return view('admin.page.manage-product');
     }
+	
+	public function pdf(){
+		Fpdf::AddPage();
+		Fpdf::SetFont('Courier', 'B', 18);
+		Fpdf::Cell(50, 25, 'Hello World!');
+		Fpdf::Output();
+		exit;
+	}
 }
