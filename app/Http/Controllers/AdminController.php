@@ -11,6 +11,6 @@ class AdminController extends Controller
     public function getAdmin()
     {
 
-    	return view('admin/page/index');
+    	return view('admin.page.index');
     }
 }

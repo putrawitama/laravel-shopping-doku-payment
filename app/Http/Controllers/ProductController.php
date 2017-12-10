@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Session;
+use Fpdf;
 
 class ProductController extends Controller
 {
@@ -24,6 +25,13 @@ class ProductController extends Controller
     {
     	$products = Product::all();
     	return view('shop.index', ['products' => $products]);
+    }
+
+    public function getProduct()
+    {
+        $products = Product::all();
+        // dd($products);
+        return view('admin.page.product-list', ['products' => $products]);
     }
 
     public function getAddToCart(Request $req, $id)
@@ -119,4 +127,31 @@ class ProductController extends Controller
             echo "STOP - WORDS NOT MATCH";
         }
     }
+
+    public function create()
+    {
+        return view('admin.page.manage-product');
+    }
+
+    public function store(Request $request)
+    {
+        $products = new Product;
+        $products->title = $request->title;
+        $products->price = $request->price;
+        $products->description = $request->description;
+        $products->imagePath = $request->imagePath;
+        $file       = $request->file('imagePath');
+        $request->file("/public/uploads", $file->getClientOriginalName());
+        $products->save();
+
+        return view('admin.page.manage-product');
+    }
+	
+	public function pdf(){
+		Fpdf::AddPage();
+		Fpdf::SetFont('Courier', 'B', 18);
+		Fpdf::Cell(50, 25, 'Hello World!');
+		Fpdf::Output();
+		exit;
+	}
 }

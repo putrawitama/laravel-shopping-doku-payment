@@ -43,9 +43,24 @@ Route::post('/notify', [
 	'as' => 'notify'
 ]);
 
-Route::get('/admin', [
-	'uses' => 'AdminController@getAdmin',
-	'as' => 'admin'
+Route::get('/pdf', [
+	'uses' => 'ProductController@pdf',
+	'as' => 'product.pdf'
+]);
+
+Route::get('/admin/product-list', [
+	'uses' => 'ProductController@getProduct',
+	'as' => 'product.view'
+]);
+
+Route::get('/admin/manage-product',[
+	'uses' => 'ProductController@create',
+	'as' => 'create'
+]);
+
+Route::post('/admin/manage-product',[
+	'uses' => 'ProductController@store',
+	'as' => 'store'
 ]);
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
@@ -87,10 +102,31 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	});
 
 	Route::group(['middleware' => 'auth'], function() {
-		Route::get('profile', [
-			'uses' => 'UserController@getProfile',
-			'as' => 'profile'
-		]);
+		Route::group(['middleware' => 'user'], function(){
+			Route::get('profile', [
+				'uses' => 'UserController@getProfile',
+				'as' => 'profile'
+			]);
+			Route::get('setbio', [
+				'uses' => 'UserController@setBio',
+				'as' => 'setbio'
+			]);
+			Route::post('setbio', [
+				'uses' => 'UserController@storeBio',
+				'as' => 'setbio'
+			]);
+			Route::get('checkout', [
+				'uses' => 'ProductController@getCheckout',
+				'as' => 'checkout'
+			]);
+		});
+
+		Route::group(['middleware' => 'admin'], function(){
+			Route::get('admin', [
+				'uses' => 'AdminController@getAdmin',
+				'as' => 'admin'
+			]);
+		});
 
 		Route::get('logout', [
 			'uses' => 'UserController@getLogout',
