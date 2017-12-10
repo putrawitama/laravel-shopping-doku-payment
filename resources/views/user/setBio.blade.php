@@ -53,14 +53,3 @@
 		</div>
 	</div>
 @endsection
-
-@section('scripts')
-<script>
-$(function(){
-	$('#refresh-captcha').click(function(){
-		var url = $('#captcha').attr('src') + Math.floor((Math.random() * 100) + 1);
-		$('#captcha').attr('src', url);
-	});
-})
-</script>
-@endsection

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Session;
+use Fpdf;
 
 class ProductController extends Controller
 {
@@ -50,5 +51,13 @@ class ProductController extends Controller
     	$cart = new Cart($oldCart);
     	$total = $cart->totalPrice;
     	return view('shop.checkout', ['total' => $total]);
-    }
+	}
+	
+	public function pdf(){
+		Fpdf::AddPage();
+		Fpdf::SetFont('Courier', 'B', 18);
+		Fpdf::Cell(50, 25, 'Hello World!');
+		Fpdf::Output();
+		exit;
+	}
 }

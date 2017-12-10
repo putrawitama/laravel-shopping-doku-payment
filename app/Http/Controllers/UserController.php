@@ -108,7 +108,31 @@ class UserController extends Controller
 
 	public function storeBio(Request $request){
 
-		dd($request);
+		$this->validate($request, [
+			'fullname' => 'required',
+			'address' => 'required',
+			'city' => 'required',
+			'state' => 'required',
+			'country' => 'required',
+			'zipcode' => 'required|numeric',
+			'phone' => 'required|numeric',
+			'birthdate' => 'required|date'
+		]);
+
+		$user = Auth::user();
+		
+		$user->fullname = $request->fullname;
+		$user->address = $request->address;
+		$user->city = $request->city;
+		$user->state = $request->state;
+		$user->country = $request->country;
+		$user->zipcode = $request->zipcode;
+		$user->phone = $request->phone;
+		$user->birthdate = $request->birthdate;
+		
+		if($user->save()){
+			return redirect('/');
+		}
 
 	}
 
@@ -128,15 +152,35 @@ class UserController extends Controller
     	    			'email' => $req->email,
     	    			'password' =>$req->password
     	    		])) {
-
-    		return redirect()->route('user.profile');
+			$user = Auth::user();
+			if($user->fullname != null){
+				if($user->role == 2){
+					return redirect()->route('user.admin');
+				}
+				return redirect()->route('user.profile');
+			}
+			
+			return redirect()->route('user.setbio');
     	}
     	return redirect()->back();
     }
 
     public function getProfile()
     {
-    	return view('user.profile');
+		$user = Auth::user();
+
+		$data = [
+			'fullname' => $user->fullname,
+			'address' => $user->address,
+			'city' => $user->city,
+			'state' => $user->state,
+			'country' => $user->country,
+			'zipcode' => $user->zipcode,
+			'phone' => $user->phone,
+			'birthdate' => date('d F Y', strtotime($user->birthdate)),
+		];
+
+    	return view('user.profile', $data);
     }
 
     public function getLogout()
