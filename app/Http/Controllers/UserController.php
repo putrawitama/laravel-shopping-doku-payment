@@ -230,6 +230,10 @@ class UserController extends Controller
 
 	}
 
+	public function getSetting(){
+		return view('user.user-setting');
+	}
+
     public function getLogout()
     {
     	Auth::logout();
