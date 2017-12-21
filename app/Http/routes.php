@@ -27,10 +27,9 @@ Route::get('/shopping-cart', [
 	'as' => 'product.shoppingCart'
 ]);
 
-Route::get('/checkout', [
-	'uses' => 'ProductController@getCheckout',
-	'as' => 'checkout',
-	'middleware' => 'auth'
+Route::get('/emptyCart', [
+	'uses' => 'ProductController@getCartDelete',
+	'as' => 'product.deleteCart'
 ]);
 
 Route::post('/redirect', [
@@ -48,6 +47,7 @@ Route::get('/pdf', [
 	'as' => 'product.pdf'
 ]);
 
+<<<<<<< HEAD
 Route::get('/payment/success', function(){
 	return view('payment.successpayment');
 });
@@ -59,6 +59,18 @@ Route::get('/payment/failed', function(){
 Route::get('/invoice', function(){
 	return view('payment.invoice');
 });
+=======
+Route::get('/payment', [
+	'uses' => 'ProductController@pay',
+	'as' => 'pay'
+]);
+
+Route::get('/checkout', [
+	'uses' => 'ProductController@getCheckout',
+	'as' => 'checkout',
+	'middleware' => 'auth'
+]);
+>>>>>>> 69f2c84989fdf9228a86b45b706250250d7f55e5
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	Route::group(['middleware' => 'guest'], function() {
@@ -97,6 +109,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 			'as' => 'signin'
 		]);
 	});
+	
 
 	Route::group(['middleware' => 'auth'], function() {
 		Route::group(['middleware' => 'user'], function(){
@@ -137,6 +150,22 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 				'uses' => 'ProductController@store',
 				'as' => 'admin.store'
 			]);
+
+			Route::get('admin/home', [
+				'uses' => 'AdminController@home',
+				'as' => 'admin.home'
+			]);
+
+			Route::get('admin/orders', [
+				'uses' => 'AdminController@getOrders',
+				'as' => 'admin.orders'
+			]);
+
+			Route::get('admin/users', [
+				'uses' => 'AdminController@getUsers',
+				'as' => 'admin.users'
+			]);
+		
 		});
 
 		Route::get('logout', [
