@@ -152,6 +152,7 @@ return [
         Latrell\Captcha\CaptchaServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Codedge\Fpdf\FpdfServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -210,7 +211,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Fpdf' => Codedge\Fpdf\Facades\Fpdf::class,
-
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

@@ -10,6 +10,7 @@ use Auth;
 use Mail;
 use Form;
 use URL;
+use Image;
 
 class UserController extends Controller
 {
@@ -121,7 +122,7 @@ class UserController extends Controller
 
 		$user = Auth::user();
 		
-		$user->name = $request->fullname;
+		$user->fullname = $request->fullname;
 		$user->address = $request->address;
 		$user->city = $request->city;
 		$user->state = $request->state;
@@ -153,14 +154,10 @@ class UserController extends Controller
     	    			'password' =>$req->password
     	    		])) {
 			$user = Auth::user();
-			if($user->fullname != null){
-				if($user->role == 2){
-					return redirect()->route('user.admin');
-				}
-				return redirect()->route('user.profile');
+			if($user->role == 2){
+				return redirect()->route('user.admin');
 			}
-			
-			return redirect()->route('user.setbio');
+			return redirect()->route('user.profile');
     	}
     	return redirect()->back();
     }
@@ -181,7 +178,57 @@ class UserController extends Controller
 		];
 
     	return view('user.profile', $data);
-    }
+	}
+	
+    public function editProfile()
+    {
+		$user = Auth::user();
+
+		$data = [
+			'fullname' => $user->fullname,
+			'address' => $user->address,
+			'city' => $user->city,
+			'state' => $user->state,
+			'country' => $user->country,
+			'zipcode' => $user->zipcode,
+			'phone' => $user->phone,
+			'birthdate' => $user->birthdate,
+		];
+
+    	return view('user.edit-profile', $data);
+	}
+
+	public function editProfilePicture(Request $request){
+
+		if($request->hasFile('file')){
+			$user = Auth::user();
+
+			$image       = $request->file('file');
+			// $filename    = $image->getClientOriginalName();
+			$filename = 'profile_'.$user->id.'_'.date('now');
+			
+			$image_resize = Image::make($image->getRealPath());         
+			$extension = str_replace('image/', '.', $image_resize->mime());
+			// if($image_resize->height() > $image_resize->width()){
+			// 	$image_resize->resize(null, 150, function ($constraint) {
+			// 		$constraint->aspectRatio();
+			// 	});
+			// }else{
+			// 	$image_resize->resize(150, null, function ($constraint) {
+			// 		$constraint->aspectRatio();
+			// 	});
+			// }
+			$image_resize->fit(150);
+
+			if($image_resize->save('img/user_profile/' .$filename.$extension)){
+				$user->image = '/img/user_profile/' .$filename.$extension;
+				$user->save();
+			}
+		}
+
+		return redirect(route('user.profile'));
+
+	}
 
     public function getLogout()
     {
