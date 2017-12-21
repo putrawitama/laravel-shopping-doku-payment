@@ -188,41 +188,5 @@ class UserController extends Controller
     	Auth::logout();
     	return redirect()->back();
 	}
-
-	public function getUsers()
-    {
-        $users = User::all();
-        return view('admin.page.users', ['users'=>$users]);
-	}
-	
-	public function editUsers($id)
-    {
-        $user = User::find($id);
-        return view('admin.page.edit-user', ['user'=> $user]);
-    }
-
-    public function updateUsers(Request $request, $id)
-    {
-		$user = User::find($id);
-		$user->fullname = $request->fullname;
-		$user->address = $request->address;
-		$user->city = $request->city;
-		$user->state = $request->state;
-		$user->country = $request->country;
-		$user->zipcode = $request->zipcode;
-		$user->phone = $request->phone;
-		$user->birthdate = $request->birthdate;
-
-        $user->save();
-
-        return redirect()->route('user.admin.users');
-    }
-
-    public function deleteUsers($id)
-    {
-        $user = User::find($id);
-        $user->delete();
-        return redirect()->route('user.admin.users');
-    }
 	
 }
