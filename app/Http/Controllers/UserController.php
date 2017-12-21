@@ -122,7 +122,7 @@ class UserController extends Controller
 
 		$user = Auth::user();
 		
-		$user->name = $request->fullname;
+		$user->fullname = $request->fullname;
 		$user->address = $request->address;
 		$user->city = $request->city;
 		$user->state = $request->state;
@@ -167,7 +167,7 @@ class UserController extends Controller
 		$user = Auth::user();
 
 		$data = [
-			'fullname' => $user->name,
+			'fullname' => $user->fullname,
 			'address' => $user->address,
 			'city' => $user->city,
 			'state' => $user->state,
@@ -228,6 +228,10 @@ class UserController extends Controller
 
 		return redirect(route('user.profile'));
 
+	}
+
+	public function getSetting(){
+		return view('user.user-setting');
 	}
 
     public function getLogout()
