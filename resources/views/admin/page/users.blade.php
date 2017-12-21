@@ -36,7 +36,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                    
                         @foreach($users as $user)
                         <tr>
                             <td>{{ $user->fullname }}</td>
@@ -51,7 +50,7 @@
                             <td><a href="{{ route('user.admin.edit.user', ['id' => $user->id]) }}" class="btn btn-success" role="button">Edit</a>
                             <a href="{{ route('user.admin.delete.user', ['id' => $user->id]) }}" class="btn btn-success" role="button">Delete</a></td>
                         </tr>
-                        @endforeach                        
+                        @endforeach                      
                     </tbody> 
                 </table>
             </div>

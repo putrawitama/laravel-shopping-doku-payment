@@ -18,7 +18,7 @@
 <div class="container card" style="margin-left: 15px">	
     <div class="card-body">	
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                 <form action="{{ route('user.admin.update.user', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="fullname">Name</label>
@@ -56,8 +56,8 @@
                         <label for="email">Email</label>
                         <input name="email" type="text" class="form-control" id="email" value="{{ $user->email }}">
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Input</button>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Update</button>
                     {{ csrf_field() }}
                 </form>
             </div>
