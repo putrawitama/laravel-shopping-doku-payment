@@ -18,7 +18,7 @@
 <div class="container card" style="margin-left: 15px">	
     <div class="card-body">	
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                 <form action="{{ route('user.admin.update', ['id' => $product->id]) }}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="title">Title</label>
@@ -37,7 +37,7 @@
                         <img src="{{ $product->imagePath }}" class="img-thumbnail" alt="Cinque Terre" width="136" height="36">
                         <input  name="imagePath" type="file" class="form-control-file" id="browse">
                     </div>
-                    <button type="submit" class="btn btn-primary">Input</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                     {{ csrf_field() }}
                 </form>
             </div>
