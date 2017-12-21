@@ -15,29 +15,30 @@
     </div>
 </div>
 
-    @foreach($products->chunk(3) as $dChunk)
+   
     <div class="container card" style="margin-left: 15px">  
         <div class="card-body"> 
             <div class="row" style="margin-left: 40px">
                 <div>
                     <table class="table">
                         <thead>
-                            <tr>
+                            <tr style="text-align:center">
                                 <th>Book Cover</th>
                                 <th>Book Title</th>
                                 <th>Descripton</th>
                                 <th>Price</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($dChunk as $product)
+                        @foreach($products as $product)
                             <tr>
                                 <td><img src="{{ $product->imagePath }}" class="img-thumbnail" alt="Cinque Terre" width="136" height="36"> </td>
                                 <td>{{ $product->title }}</td>
                                 <td>{{ $product->description }}</td>
                                 <td>Rp {{ $product->price }}</td>
-                                <td><a href="" class="btn btn-success" role="button">Edit</a></td>
-                                <td><a href="" class="btn btn-success" role="button">Delete</a></td>
+                                <td><a href="{{ route('user.admin.edit', ['id' => $product->id]) }}" class="btn btn-success" role="button">Edit</a>
+                                <a href="{{ route('user.admin.delete', ['id' => $product->id]) }}" class="btn btn-success" role="button">Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody> 
@@ -46,5 +47,4 @@
             </div>
         </div>
     </div>
-    @endforeach
 @endsection
