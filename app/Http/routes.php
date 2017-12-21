@@ -47,7 +47,6 @@ Route::get('/pdf', [
 	'as' => 'product.pdf'
 ]);
 
-<<<<<<< HEAD
 Route::get('/payment/success', function(){
 	return view('payment.successpayment');
 });
@@ -59,18 +58,12 @@ Route::get('/payment/failed', function(){
 Route::get('/invoice', function(){
 	return view('payment.invoice');
 });
-=======
-Route::get('/payment', [
-	'uses' => 'ProductController@pay',
-	'as' => 'pay'
-]);
 
 Route::get('/checkout', [
 	'uses' => 'ProductController@getCheckout',
 	'as' => 'checkout',
 	'middleware' => 'auth'
 ]);
->>>>>>> 69f2c84989fdf9228a86b45b706250250d7f55e5
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	Route::group(['middleware' => 'guest'], function() {

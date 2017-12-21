@@ -17,7 +17,6 @@ class CreateOrdersTable extends Migration
             $table->timestamps();
             $table->integer('user_id');
             $table->text('cart');
-            $table->string('payment_id');
         });
     }
 
