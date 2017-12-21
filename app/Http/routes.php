@@ -106,6 +106,11 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 				'as' => 'setting'
 			]);
 
+			Route::post('update-pass', [
+				'uses' => 'UserController@updatePass',
+				'as' => 'update-pass'
+			]);
+
 			Route::post('update-profile-picture', [
 				'uses' => 'UserController@editProfilePicture',
 				'as' => 'update-profile-picture'
