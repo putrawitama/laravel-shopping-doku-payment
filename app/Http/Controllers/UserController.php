@@ -251,6 +251,22 @@ class UserController extends Controller
 		return ($user->save()) ? redirect()->route('user.profile') : back();	
 	}
 
+	public function removePicture(){
+		$user = Auth::user();
+		if(is_file(public_path($user->image))){
+			if(unlink(public_path($user->image))){
+				$user->image = null;
+				$user->save();
+			}
+		}
+
+		return back();
+	}
+
+	public function getTransactions(){
+		return view('user.transactions');
+	}
+
     public function getLogout()
     {
     	Auth::logout();

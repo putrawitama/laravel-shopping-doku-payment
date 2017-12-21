@@ -25,7 +25,7 @@
 						<div class="col-md-12">
 							<input class="btn btn-link" type="submit" name="submit" value="Add/Update Picture" style="color:#333;">
 						</form>
-							<a href="#" class="btn btn-link">Remove Picture</a>
+							<a href="{{ route('user.remove-picture') }}" class="btn btn-link">Remove Picture</a>
 						</div>
 					</div>
 				</div>
