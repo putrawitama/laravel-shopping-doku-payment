@@ -24,8 +24,8 @@
 		            <input name="COUNTRY" type="hidden" value="ID" >
 		            <input name="SESSIONID" type="hidden" value="12345" >
 		            <input name="REQUESTDATETIME" type="hidden" value="{{ \Carbon\Carbon::now()->format('YmdHis') }}" >
-		            <input name="NAME" type="hidden" value="Putra Witama" >
-		            <input name="EMAIL" type="hidden" value="putrawitama@gmail.com">
+		            <input name="NAME" type="hidden" value="{{ $name }}" >
+		            <input name="EMAIL" type="hidden" value="{{ $email }}">
 		            <div class="form-group">
 					    <label for="PAYMENTCHANNEL">Payment Method</label>
 					    <select class="form-control" name="PAYMENTCHANNEL">

@@ -170,22 +170,22 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 			]);
 
 			Route::get('admin/users', [
-				'uses' => 'UserController@getUsers',
+				'uses' => 'AdminController@getUsers',
 				'as' => 'admin.users'
 			]);
 
 			Route::get('admin/edit-user/{id}',[
-				'uses' => 'UserController@editUsers',
+				'uses' => 'AdminController@editUsers',
 				'as' => 'admin.edit.user'
 			]);
 
 			Route::post('admin/update-user/{id}',[
-				'uses' => 'UserController@updateUsers',
+				'uses' => 'AdminController@updateUsers',
 				'as' => 'admin.update.user'
 			]);
 
 			Route::get('admin/delete-user/{id}',[
-				'uses' => 'UserController@deleteUsers',
+				'uses' => 'AdminController@deleteUsers',
 				'as' => 'admin.delete.user'
 			]);
 

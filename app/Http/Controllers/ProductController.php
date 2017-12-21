@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Product;
+use App\Order;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Session;
 use Fpdf;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -80,19 +82,24 @@ class ProductController extends Controller
             return $item['item']->title . "," . $item['item']->price . ",".$item['qty']."," . ($item['price']);
         }, $cart->items);
 
+        $user = Auth::user();
         $basket = implode(";", $basket);
-        $tmerchant = "INVBUSET"; //product_id di database
-        $total = number_format($total, 2, ".", "");
+        $invoice = Order::orderBy('id', 'desc')->first(); //product_id di database
+        $tmerchant = $invoice['id']+1;
 
-    	return view('shop.checkout', [
-            'total' => $total,
+        $data = [
+            'email' => $user->email,
+            'name' => $user->name,
+            'total' => number_format($total, 2, ".", ""),
             'WORDS' => sha1($total . $this->mallid . $this->skey . $tmerchant),
-            'amount' => $total,
+            'amount' => number_format($total, 2, ".", ""),
             'mallid' => $this->mallid,
             'skey' => $this->skey,
             'tmerchant' => $tmerchant,
-            'basket' => $basket
-        ]);
+            'basket' => $basket 
+        ];
+
+    	return view('shop.checkout', $data);
     }
 
 
@@ -105,35 +112,48 @@ class ProductController extends Controller
     public function postRedirect(Request $req)
     {
       $all = $req->all();
+      $oldCart = Session::get('cart');
+      $cart = new Cart($oldCart);
+      $order = new Order();
+      $order->cart = serialize($cart);    
 
       $notify = Session::get('status');
       //dd($all);
-
-      if($all['STATUSCODE'] == "0000") {
-        return redirect("/payment/success");
-      } else {
-        return redirect("/payment/failed");
+      if (isset($all['STATUSCODE'])) {
+          if($all['STATUSCODE'] == "0000") {
+            $order->status = 'sudah dibayar';
+            Auth::user()->orders()->save($order);
+            return redirect("/payment/success");
+          } else {
+            $order->status = 'belum dibayar';
+            Auth::user()->orders()->save($order);
+            return redirect("/payment/failed");
+          }
       }
     }
 
     public function postNotify(Request $req)
     {
         $all = $req->all();
-
-        $tmerchant = "INV012017";
         $total = number_format($all['AMOUNT'], 2, ".", "");
 
         $WORDS_GENERATED = sha1($all['AMOUNT'] . "10956732" .  "L7G4u6g8K2F9" . $all['TRANSIDMERCHANT'] . $all['RESULTMSG'] . $all['VERIFYSTATUS']);
 
 
         if ( $all['WORDS'] == $WORDS_GENERATED )
-        {
+        {   
+                    
+
             echo "CONTINUE";
             if ($all['RESULTMSG'] == 'SUCCESS'){
                     //$req->session()->put('status', 'Payment Success');
             } else{
                    // $req->session()->put('status', 'Payment Failed');
-                }
+            }
+            // $order->user_id = $user->id;
+            // $order->save();
+
+            // Session::forget('cart');
         }
         else
         {
