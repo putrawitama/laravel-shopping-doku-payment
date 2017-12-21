@@ -13,7 +13,7 @@
           <div class="wrapper count-title d-flex">
             <div class="icon"><i class="fa fa-user-o"></i></div>
             <div class="name"><strong class="text-uppercase">Users</strong><span>Listed User</span>
-              <div class="count-number">9999</div>
+              <div class="count-number">{{ $user }}</div>
             </div>
           </div>
         </div>
@@ -21,7 +21,7 @@
           <div class="wrapper count-title d-flex">
             <div class="icon"><i class="fa fa-dollar"></i></div>
             <div class="name"><strong class="text-uppercase">Orders</strong><span>Listed Order</span>
-              <div class="count-number">9999</div>
+              <div class="count-number">{{ $order }}</div>
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="wrapper count-title d-flex">
             <div class="icon"><i class="fa fa-database"></i></div>
             <div class="name"><strong class="text-uppercase">Products</strong><span>Listed Product</span>
-              <div class="count-number">9999</div>
+              <div class="count-number">{{ $totalProducts }}</div>
             </div>
           </div>
         </div>

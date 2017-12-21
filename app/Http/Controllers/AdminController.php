@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\User;
+use App\Order;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,8 +18,15 @@ class AdminController extends Controller
     
     public function home()
     {
-        $products = Product::all();
-        return view('admin.page.home', ['products' => $products]);
+
+        $data = [
+            'products' => Product::all(),
+            'totalProducts' => Product::count(),
+            'user' => User::count(),
+            'order' => Order::count()
+        ];
+
+        return view('admin.page.home', $data);
     }
 
     public function getOrders()

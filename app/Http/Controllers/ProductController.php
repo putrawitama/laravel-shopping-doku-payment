@@ -89,7 +89,7 @@ class ProductController extends Controller
 
         $data = [
             'email' => $user->email,
-            'name' => $user->fullname,
+            'name' => $user->name,
             'total' => number_format($total, 2, ".", ""),
             'WORDS' => sha1($total . $this->mallid . $this->skey . $tmerchant),
             'amount' => number_format($total, 2, ".", ""),
@@ -112,14 +112,23 @@ class ProductController extends Controller
     public function postRedirect(Request $req)
     {
       $all = $req->all();
+      $oldCart = Session::get('cart');
+      $cart = new Cart($oldCart);
+      $order = new Order();
+      $order->cart = serialize($cart);    
 
       $notify = Session::get('status');
       //dd($all);
-
-      if($all['STATUSCODE'] == "0000") {
-        return redirect("/payment/success");
-      } else {
-        return redirect("/payment/failed");
+      if (isset($all['STATUSCODE'])) {
+          if($all['STATUSCODE'] == "0000") {
+            $order->status = 'sudah dibayar';
+            Auth::user()->orders()->save($order);
+            return redirect("/payment/success");
+          } else {
+            $order->status = 'belum dibayar';
+            Auth::user()->orders()->save($order);
+            return redirect("/payment/failed");
+          }
       }
     }
 
@@ -133,23 +142,18 @@ class ProductController extends Controller
 
         if ( $all['WORDS'] == $WORDS_GENERATED )
         {   
-            $oldCart = Session::get('cart');
-            $cart = new Cart($oldCart);
-            
-            $order = new Order();
-            $order->cart = serialize($cart);            
+                    
 
             echo "CONTINUE";
             if ($all['RESULTMSG'] == 'SUCCESS'){
-                $order->status = 'sudah dibayar';
                     //$req->session()->put('status', 'Payment Success');
             } else{
-                $order->status = 'belum dibayar';
                    // $req->session()->put('status', 'Payment Failed');
             }
-            Auth::user()->orders()->save($order);
+            // $order->user_id = $user->id;
+            // $order->save();
 
-            Session::forget('cart');
+            // Session::forget('cart');
         }
         else
         {
@@ -190,10 +194,12 @@ class ProductController extends Controller
         $products->title = $request->title;
         $products->price = $request->price;
         $products->description = $request->description;
-        $file       = $request->file('imagePath')->getClientOriginalName();
-        $destination = base_path() . '/public/uploads';
-        $request->file('imagePath')->move($destination, $file);
-        $products->imagePath = '/uploads/'.$file;
+        if ($request->file('imagePath') != null) {
+            $file       = $request->file('imagePath')->getClientOriginalName();
+            $destination = base_path() . '/public/uploads';
+            $request->file('imagePath')->move($destination, $file);
+            $products->imagePath = '/uploads/'.$file;
+        }
 
         $products->save();
 

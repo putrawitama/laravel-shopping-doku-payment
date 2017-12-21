@@ -122,7 +122,7 @@ class UserController extends Controller
 
 		$user = Auth::user();
 		
-		$user->fullname = $request->fullname;
+		$user->name = $request->fullname;
 		$user->address = $request->address;
 		$user->city = $request->city;
 		$user->state = $request->state;
@@ -167,7 +167,7 @@ class UserController extends Controller
 		$user = Auth::user();
 
 		$data = [
-			'fullname' => $user->fullname,
+			'fullname' => $user->name,
 			'address' => $user->address,
 			'city' => $user->city,
 			'state' => $user->state,
