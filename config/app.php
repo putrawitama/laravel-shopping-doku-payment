@@ -151,9 +151,8 @@ return [
         crocodicstudio\dokularavel\DokuLaravelServiceProvider::class,
         Latrell\Captcha\CaptchaServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Codedge\Fpdf\FpdfServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        // 'Anouar\Fpdf\FpdfServiceProvider',
-        // Codedge\Fpdf\FpdfServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -211,7 +210,6 @@ return [
         'Captcha' => Latrell\Captcha\Facades\Captcha::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        // 'Fpdf' => 'Anouar\Fpdf\Facades\Fpdf',
         'Fpdf' => Codedge\Fpdf\Facades\Fpdf::class,
         'Image' => Intervention\Image\Facades\Image::class,
     ],

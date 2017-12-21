@@ -63,7 +63,7 @@
 					</a>
 				</div>
 				<div class="sidebar-button col-md-12">
-					<a href="#">
+					<a href="{{ route('user.transactions') }}">
 						<div class="row">
 							<div class="col-md-2">
 								<i class="fa fa-credit-card" aria-hidden="true"></i>
@@ -87,7 +87,7 @@
 					</a>
 				</div>
 				<div class="sidebar-button col-md-12">
-					<a href="#">
+					<a href="{{ route('user.logout') }}">
 						<div class="row">
 							<div class="col-md-2">
 								<i class="fa fa-sign-out" aria-hidden="true"></i>

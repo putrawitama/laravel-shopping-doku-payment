@@ -234,6 +234,39 @@ class UserController extends Controller
 		return view('user.user-setting');
 	}
 
+	public function updatePass(Request $request){
+		$this->validate($request, [
+			'old_pass' => 'required',
+			'new_pass' => 'required',
+			'verify_pass' => 'required|same:new_pass'
+		]);
+		
+		$user = Auth::user();
+
+		if(!password_verify($request->old_pass, $user->password)){
+			return back();
+		}
+
+		$user->password = bcrypt($request->new_pass);
+		return ($user->save()) ? redirect()->route('user.profile') : back();	
+	}
+
+	public function removePicture(){
+		$user = Auth::user();
+		if(is_file(public_path($user->image))){
+			if(unlink(public_path($user->image))){
+				$user->image = null;
+				$user->save();
+			}
+		}
+
+		return back();
+	}
+
+	public function getTransactions(){
+		return view('user.transactions');
+	}
+
     public function getLogout()
     {
     	Auth::logout();

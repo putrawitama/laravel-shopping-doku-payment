@@ -215,14 +215,100 @@ class ProductController extends Controller
 	
 	public function pdf(){
 		Fpdf::AddPage();
-		Fpdf::SetFont('Courier', 'B', 18);
-		Fpdf::Cell(50, 25, 'Hello World!');
+
+        //set font to arial, bold, 14pt
+        Fpdf::SetFont('Arial','B',14);
+
+        //Cell(width , height , text , border , end line , [align] )
+
+        Fpdf::Cell(130 ,5,'GEMUL APPLIANCES.CO',0,0);
+        Fpdf::Cell(59 ,5,'INVOICE',0,1);//end of line
+
+        //set font to arial, regular, 12pt
+        Fpdf::SetFont('Arial','',12);
+
+        Fpdf::Cell(130 ,5,'[Street Address]',0,0);
+        Fpdf::Cell(59 ,5,'',0,1);//end of line
+
+        Fpdf::Cell(130 ,5,'[City, Country, ZIP]',0,0);
+        Fpdf::Cell(25 ,5,'Date',0,0);
+        Fpdf::Cell(34 ,5,'[dd/mm/yyyy]',0,1);//end of line
+
+        Fpdf::Cell(130 ,5,'Phone [+12345678]',0,0);
+        Fpdf::Cell(25 ,5,'Invoice #',0,0);
+        Fpdf::Cell(34 ,5,'[1234567]',0,1);//end of line
+
+        Fpdf::Cell(130 ,5,'Fax [+12345678]',0,0);
+        Fpdf::Cell(25 ,5,'Customer ID',0,0);
+        Fpdf::Cell(34 ,5,'[1234567]',0,1);//end of line
+
+        //make a dummy empty cell as a vertical spacer
+        Fpdf::Cell(189 ,10,'',0,1);//end of line
+
+        //billing address
+        Fpdf::Cell(100 ,5,'Bill to',0,1);//end of line
+
+        //add dummy cell at beginning of each line for indentation
+        Fpdf::Cell(10 ,5,'',0,0);
+        Fpdf::Cell(90 ,5,'[Name]',0,1);
+
+        Fpdf::Cell(10 ,5,'',0,0);
+        Fpdf::Cell(90 ,5,'[Company Name]',0,1);
+
+        Fpdf::Cell(10 ,5,'',0,0);
+        Fpdf::Cell(90 ,5,'[Address]',0,1);
+
+        Fpdf::Cell(10 ,5,'',0,0);
+        Fpdf::Cell(90 ,5,'[Phone]',0,1);
+
+        //make a dummy empty cell as a vertical spacer
+        Fpdf::Cell(189 ,10,'',0,1);//end of line
+
+        //invoice contents
+        Fpdf::SetFont('Arial','B',12);
+
+        Fpdf::Cell(130 ,5,'Description',1,0);
+        Fpdf::Cell(25 ,5,'Taxable',1,0);
+        Fpdf::Cell(34 ,5,'Amount',1,1);//end of line
+
+        Fpdf::SetFont('Arial','',12);
+
+        //Numbers are right-aligned so we give 'R' after new line parameter
+
+        Fpdf::Cell(130 ,5,'UltraCool Fridge',1,0);
+        Fpdf::Cell(25 ,5,'-',1,0);
+        Fpdf::Cell(34 ,5,'3,250',1,1,'R');//end of line
+
+        Fpdf::Cell(130 ,5,'Supaclean Diswasher',1,0);
+        Fpdf::Cell(25 ,5,'-',1,0);
+        Fpdf::Cell(34 ,5,'1,200',1,1,'R');//end of line
+
+        Fpdf::Cell(130 ,5,'Something Else',1,0);
+        Fpdf::Cell(25 ,5,'-',1,0);
+        Fpdf::Cell(34 ,5,'1,000',1,1,'R');//end of line
+
+        //summary
+        Fpdf::Cell(130 ,5,'',0,0);
+        Fpdf::Cell(25 ,5,'Subtotal',0,0);
+        Fpdf::Cell(4 ,5,'$',1,0);
+        Fpdf::Cell(30 ,5,'4,450',1,1,'R');//end of line
+
+        Fpdf::Cell(130 ,5,'',0,0);
+        Fpdf::Cell(25 ,5,'Taxable',0,0);
+        Fpdf::Cell(4 ,5,'$',1,0);
+        Fpdf::Cell(30 ,5,'0',1,1,'R');//end of line
+
+        Fpdf::Cell(130 ,5,'',0,0);
+        Fpdf::Cell(25 ,5,'Tax Rate',0,0);
+        Fpdf::Cell(4 ,5,'$',1,0);
+        Fpdf::Cell(30 ,5,'10%',1,1,'R');//end of line
+
+        Fpdf::Cell(130 ,5,'',0,0);
+        Fpdf::Cell(25 ,5,'Total Due',0,0);
+        Fpdf::Cell(4 ,5,'$',1,0);
+        Fpdf::Cell(30 ,5,'4,450',1,1,'R');//end of line
+
 		Fpdf::Output();
 		exit;
 	}
-
-    public function FunctionName($value='')
-    {
-        # code...
-    }
 }
