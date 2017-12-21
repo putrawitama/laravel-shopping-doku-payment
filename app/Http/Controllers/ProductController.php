@@ -125,11 +125,11 @@ class ProductController extends Controller
             Auth::user()->orders()->save($order);
             return redirect("/payment/success");
           }
-
-          $order->status = 'belum dibayar';
-          Auth::user()->orders()->save($order);
-          return redirect("/payment/failed");
       }
+
+      $order->status = 'belum dibayar';
+      Auth::user()->orders()->save($order);
+      return redirect("/payment/failed");
     }
 
     public function postNotify(Request $req)
