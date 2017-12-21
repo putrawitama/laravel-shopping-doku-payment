@@ -75,7 +75,7 @@
 					</a>
 				</div>
 				<div class="sidebar-button col-md-12">
-					<a href="#">
+					<a href="{{ route('user.setting') }}">
 						<div class="row">
 							<div class="col-md-2">
 								<i class="fa fa-wrench" aria-hidden="true"></i>
