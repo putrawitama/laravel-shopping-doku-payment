@@ -153,7 +153,7 @@ class UserController extends Controller
     	    			'password' =>$req->password
     	    		])) {
 			$user = Auth::user();
-			if($user->fullname != null){
+			if($user->name != null){
 				if($user->role == 2){
 					return redirect()->route('user.admin');
 				}

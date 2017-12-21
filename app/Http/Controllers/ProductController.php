@@ -194,10 +194,12 @@ class ProductController extends Controller
         $products->title = $request->title;
         $products->price = $request->price;
         $products->description = $request->description;
-        $file       = $request->file('imagePath')->getClientOriginalName();
-        $destination = base_path() . '/public/uploads';
-        $request->file('imagePath')->move($destination, $file);
-        $products->imagePath = '/uploads/'.$file;
+        if ($request->file('imagePath') != null) {
+            $file       = $request->file('imagePath')->getClientOriginalName();
+            $destination = base_path() . '/public/uploads';
+            $request->file('imagePath')->move($destination, $file);
+            $products->imagePath = '/uploads/'.$file;
+        }
 
         $products->save();
 
