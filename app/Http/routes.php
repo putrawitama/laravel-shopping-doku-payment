@@ -76,21 +76,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 			'uses' => 'UserController@postSignup',
 			'as' => 'signup'
 			]);
-			
-		Route::get('askverification', [
-			'uses' => 'UserController@askVerification',
-			'as' => 'askVerification'
-		]);
-
-		Route::post('resendverificationtoken', [
-			'uses' => 'UserController@resendVerificationToken',
-			'as' => 'resendVerificationToken'
-		]);
-			
-		Route::get('verifyuser/{id}/{token}', [
-			'uses' => 'UserController@verifyUser',
-			'as' => 'verifyUser'
-		]);
 
 		Route::get('signin', [
 			'uses' => 'UserController@getSignin',
@@ -104,20 +89,18 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	});
 	
 
-	Route::group(['middleware' => 'auth'], function() {
-		Route::group(['middleware' => 'user'], function(){
+	Route::group(['middleware' => ['auth']], function() {
+		Route::group(['middleware' => ['user', 'verified', 'identified']], function(){
 			Route::get('profile', [
 				'uses' => 'UserController@getProfile',
 				'as' => 'profile'
 			]);
-			Route::get('setbio', [
-				'uses' => 'UserController@setBio',
-				'as' => 'setbio'
+
+			Route::get('edit-profile', [
+				'uses' => 'UserController@editProfile',
+				'as' => 'edit-profile'
 			]);
-			Route::post('setbio', [
-				'uses' => 'UserController@storeBio',
-				'as' => 'setbio'
-			]);
+
 			Route::get('checkout', [
 				'uses' => 'ProductController@getCheckout',
 				'as' => 'checkout'
@@ -179,6 +162,30 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 			]);
 		
 		});
+
+		Route::get('setbio', [
+			'uses' => 'UserController@setBio',
+			'as' => 'setbio'
+		]);
+		Route::post('setbio', [
+			'uses' => 'UserController@storeBio',
+			'as' => 'setbio'
+		]);
+
+		Route::get('askverification', [
+			'uses' => 'UserController@askVerification',
+			'as' => 'askVerification'
+		]);
+
+		Route::post('resendverificationtoken', [
+			'uses' => 'UserController@resendVerificationToken',
+			'as' => 'resendVerificationToken'
+		]);
+			
+		Route::get('verifyuser/{id}/{token}', [
+			'uses' => 'UserController@verifyUser',
+			'as' => 'verifyUser'
+		]);
 
 		Route::get('logout', [
 			'uses' => 'UserController@getLogout',

@@ -153,14 +153,10 @@ class UserController extends Controller
     	    			'password' =>$req->password
     	    		])) {
 			$user = Auth::user();
-			if($user->fullname != null){
-				if($user->role == 2){
-					return redirect()->route('user.admin');
-				}
-				return redirect()->route('user.profile');
+			if($user->role == 2){
+				return redirect()->route('user.admin');
 			}
-			
-			return redirect()->route('user.setbio');
+			return redirect()->route('user.profile');
     	}
     	return redirect()->back();
     }
@@ -181,7 +177,25 @@ class UserController extends Controller
 		];
 
     	return view('user.profile', $data);
-    }
+	}
+	
+    public function editProfile()
+    {
+		$user = Auth::user();
+
+		$data = [
+			'fullname' => $user->fullname,
+			'address' => $user->address,
+			'city' => $user->city,
+			'state' => $user->state,
+			'country' => $user->country,
+			'zipcode' => $user->zipcode,
+			'phone' => $user->phone,
+			'birthdate' => $user->birthdate,
+		];
+
+    	return view('user.edit-profile', $data);
+	}
 
     public function getLogout()
     {
