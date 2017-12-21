@@ -21,9 +21,15 @@ class ProductController extends Controller
         $this->skey = "L7G4u6g8K2F9";
     }
 
-    public function getIndex()
+    public function getIndex(Request  $req)
     {
-    	$products = Product::all();
+        if ($req->keyword == null) {
+            $products = Product::all();
+        } else {
+            $products = Product::where('title', 'like', '%'.$req->keyword.'%')
+                                ->orWhere('description', 'like', '%'.$req->keyword.'%')
+                                ->get();
+        }
     	return view('shop.index', ['products' => $products]);
     }
 
@@ -87,6 +93,13 @@ class ProductController extends Controller
             'tmerchant' => $tmerchant,
             'basket' => $basket
         ]);
+    }
+
+
+    public function getCartDelete()
+    {
+        Session::forget('cart');
+        return redirect()->route('product.shoppingCart');
     }
 
     public function postRedirect(Request $req)
