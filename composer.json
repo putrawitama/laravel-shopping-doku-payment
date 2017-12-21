@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "crocodicstudio/dokularavel": "^1.6",
         "latrell/captcha": "dev-master",
-        "laravelcollective/html": "^5.2.0"
+        "laravelcollective/html": "^5.2.0",
+        "codedge/laravel-fpdf": "^1.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
