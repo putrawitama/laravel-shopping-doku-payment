@@ -28,7 +28,7 @@
                                 </h4>
                             </div>
                             <div class="col">
-                                 <h6><strong>Rp {{$product['price']}} <span class="text-muted">x</span> {{ $product['qty'] }}</strong></h6>
+                                 <h6><strong>Rp {{ $product['price'] }} <span class="text-muted">x</span> {{ $product['qty'] }}</strong></h6>
                             </div>
                         </div>
                         <hr>

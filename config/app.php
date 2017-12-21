@@ -152,7 +152,7 @@ return [
         Latrell\Captcha\CaptchaServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         // 'Anouar\Fpdf\FpdfServiceProvider',
-        Codedge\Fpdf\FpdfServiceProvider::class,
+        // Codedge\Fpdf\FpdfServiceProvider::class,
 
         /*
          * Application Service Providers...

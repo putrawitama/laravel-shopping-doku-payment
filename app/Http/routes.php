@@ -48,7 +48,17 @@ Route::get('/pdf', [
 	'as' => 'product.pdf'
 ]);
 
+Route::get('/payment/success', function(){
+	return view('payment.successpayment');
+});
 
+Route::get('/payment/failed', function(){
+	return view('payment.failedpayment');
+});
+
+Route::get('/invoice', function(){
+	return view('payment.invoice');
+});
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	Route::group(['middleware' => 'guest'], function() {
