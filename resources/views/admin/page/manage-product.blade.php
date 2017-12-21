@@ -19,7 +19,7 @@
 		<div class="card-body">	
 			<div class="row">
 				<div class="col-sm-4">
-					<form action="/admin/manage-product" method="post" enctype="multipart/form-data">
+					<form action="{{ route('user.admin.store') }}" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="title">Title</label>
 				    		<input name="title" type="text" class="form-control" id="title" placeholder="Enter Book Title">

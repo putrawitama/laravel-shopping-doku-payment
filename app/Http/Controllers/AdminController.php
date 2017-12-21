@@ -20,13 +20,6 @@ class AdminController extends Controller
         return view('admin.page.home', ['products' => $products]);
     }
 
-    public function getUsers()
-    {
-        // $users = User::all();
-        // // dd($users);
-        return view('admin.page.users');
-    }
-
     public function getOrders()
     {
         // $orders = Order::all();

@@ -144,6 +144,21 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 				'as' => 'admin.store'
 			]);
 
+			Route::get('admin/edit-product/{id}',[
+				'uses' => 'ProductController@edit',
+				'as' => 'admin.edit'
+			]);
+
+			Route::post('admin/edit-product/{id}',[
+				'uses' => 'ProductController@update',
+				'as' => 'admin.update'
+			]);
+
+			Route::get('admin/delete-product/{id}',[
+				'uses' => 'ProductController@delete',
+				'as' => 'admin.delete'
+			]);
+
 			Route::get('admin/home', [
 				'uses' => 'AdminController@home',
 				'as' => 'admin.home'
@@ -155,9 +170,25 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 			]);
 
 			Route::get('admin/users', [
-				'uses' => 'AdminController@getUsers',
+				'uses' => 'UserController@getUsers',
 				'as' => 'admin.users'
 			]);
+
+			Route::get('admin/edit-user/{id}',[
+				'uses' => 'UserController@editUsers',
+				'as' => 'admin.edit.user'
+			]);
+
+			Route::post('admin/update-user/{id}',[
+				'uses' => 'UserController@updateUsers',
+				'as' => 'admin.update.user'
+			]);
+
+			Route::get('admin/delete-user/{id}',[
+				'uses' => 'UserController@deleteUsers',
+				'as' => 'admin.delete.user'
+			]);
+
 		
 		});
 
