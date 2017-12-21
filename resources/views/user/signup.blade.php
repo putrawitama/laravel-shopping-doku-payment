@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-	<!-- gone fatur -->
 	<div class="row">
 		<div class="col-md-4 offset-md-4" style="padding-top:30px;">
 			<h1>Sign Up</h1>
