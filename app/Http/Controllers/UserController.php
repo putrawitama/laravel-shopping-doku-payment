@@ -131,7 +131,7 @@ class UserController extends Controller
 		$user->birthdate = $request->birthdate;
 		
 		if($user->save()){
-			return redirect('user.profile');
+			return redirect()->route('user.profile');
 		}
 
 	}
