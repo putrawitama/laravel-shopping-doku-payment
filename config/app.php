@@ -151,6 +151,7 @@ return [
         crocodicstudio\dokularavel\DokuLaravelServiceProvider::class,
         Latrell\Captcha\CaptchaServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         // 'Anouar\Fpdf\FpdfServiceProvider',
         // Codedge\Fpdf\FpdfServiceProvider::class,
 
@@ -212,7 +213,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         // 'Fpdf' => 'Anouar\Fpdf\Facades\Fpdf',
         'Fpdf' => Codedge\Fpdf\Facades\Fpdf::class,
-
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

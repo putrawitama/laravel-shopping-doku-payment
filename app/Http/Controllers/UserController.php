@@ -10,6 +10,7 @@ use Auth;
 use Mail;
 use Form;
 use URL;
+use Image;
 
 class UserController extends Controller
 {
@@ -195,6 +196,38 @@ class UserController extends Controller
 		];
 
     	return view('user.edit-profile', $data);
+	}
+
+	public function editProfilePicture(Request $request){
+
+		if($request->hasFile('file')){
+			$user = Auth::user();
+
+			$image       = $request->file('file');
+			// $filename    = $image->getClientOriginalName();
+			$filename = 'profile_'.$user->id.'_'.date('now');
+			
+			$image_resize = Image::make($image->getRealPath());         
+			$extension = str_replace('image/', '.', $image_resize->mime());
+			// if($image_resize->height() > $image_resize->width()){
+			// 	$image_resize->resize(null, 150, function ($constraint) {
+			// 		$constraint->aspectRatio();
+			// 	});
+			// }else{
+			// 	$image_resize->resize(150, null, function ($constraint) {
+			// 		$constraint->aspectRatio();
+			// 	});
+			// }
+			$image_resize->fit(150);
+
+			if($image_resize->save('img/user_profile/' .$filename.$extension)){
+				$user->image = '/img/user_profile/' .$filename.$extension;
+				$user->save();
+			}
+		}
+
+		return redirect(route('user.profile'));
+
 	}
 
     public function getLogout()

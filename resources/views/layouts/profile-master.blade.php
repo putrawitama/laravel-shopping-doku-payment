@@ -8,6 +8,8 @@
 					<img src="
 					@if(Auth::user()->image == null)
 					{{ asset('img/user_profile/default.jpg') }}
+					@else
+					{{ Auth::user()->image }}
 					@endif
 					" alt="" class="img img-fluid rounded-circle">
 				</div>
@@ -98,7 +100,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-9" style="padding-top: 30px;">
+		<div class="col-md-9" style="padding-top: 30px;padding-left:50px;">
 			<div class="row">
 				@yield('profile-content')
 			</div>

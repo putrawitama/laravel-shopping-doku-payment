@@ -101,6 +101,11 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 				'as' => 'edit-profile'
 			]);
 
+			Route::post('update-profile-picture', [
+				'uses' => 'UserController@editProfilePicture',
+				'as' => 'update-profile-picture'
+			]);
+
 			Route::get('checkout', [
 				'uses' => 'ProductController@getCheckout',
 				'as' => 'checkout'

@@ -2,8 +2,34 @@
 
 @section('profile-content')
 <div class="col-md-12">
-			<h1 class="" style="margin-bottom: 30px;">Edit Profile</h1>
 
+			<h1 class="">Edit Profile</h1>
+
+			<div class="row" style="padding-top:20px;padding-bottom:20px;">
+				<div class="col-md-2 text-center">
+					<img src="
+					@if(Auth::user()->image == null)
+					{{ asset('img/user_profile/default.jpg') }}
+					@else
+					{{ Auth::user()->image }}
+					@endif
+					" alt="" class="img img-fluid rounded" style="width:80px;">
+				</div>
+				<div class="col-md-10">
+					<div class="row">
+						<form action="{{ route('user.update-profile-picture') }}" method="post" enctype="multipart/form-data">
+							<div class="col-md-12">
+								<input class="btn btn-link" type="file" name="file" style="color:#333;">
+							</div>
+							{{ csrf_field() }}
+						<div class="col-md-12">
+							<input class="btn btn-link" type="submit" name="submit" value="Add/Update Picture" style="color:#333;">
+						</form>
+							<a href="#" class="btn btn-link">Remove Picture</a>
+						</div>
+					</div>
+				</div>
+			</div>
 			@if(count($errors) > 0)
 				<div class="alert alert-danger">
 					@foreach($errors->all() as $error)
