@@ -152,24 +152,63 @@ class ProductController extends Controller
         $products->title = $request->title;
         $products->price = $request->price;
         $products->description = $request->description;
-        $products->imagePath = $request->imagePath;
-        $file       = $request->file('imagePath');
-        $request->file("/public/uploads", $file->getClientOriginalName());
+        $file       = $request->file('imagePath')->getClientOriginalName();
+        $destination = base_path() . '/public/uploads';
+        $request->file('imagePath')->move($destination, $file);
+        $products->imagePath = '/uploads/'.$file;
+
         $products->save();
 
         return view('admin.page.manage-product');
     }
+
+    public function edit($id)
+    {
+        $products = Product::find($id);
+        return view('admin.page.edit-product', ['product'=> $products]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $products = Product::find($id);
+        $products->title = $request->title;
+        $products->price = $request->price;
+        $products->description = $request->description;
+        $file       = $request->file('imagePath')->getClientOriginalName();
+        $destination = base_path() . '/public/uploads';
+        $request->file('imagePath')->move($destination, $file);
+        $products->imagePath = '/uploads/'.$file;
+
+        $products->save();
+
+        return redirect()->route('user.admin.product.view');
+    }
+
+    public function delete($id)
+    {
+        $products = Product::find($id);
+        $products->delete();
+        return redirect()->route('user.admin.product.view');
+    }
 	
 	public function pdf(){
 		Fpdf::AddPage();
+        Fpdf::SetFont('Courier', 'B', 58);
+        Fpdf::Cell(50, 25, 'INVOICE');
+        Fpdf::SetFont('Arial', 'B',15);
+        Fpdf::Cell(80);
+        Fpdf::Cell(30,10,'Title',1,0,'C');
+        Fpdf::SetFillColor(230,230,0);
+        Fpdf::Ln(20);
+
+        Fpdf::SetFont('Arial','',12);
+        Fpdf::SetFillColor(200,220,255);
+        Fpdf::Cell(90,90,"Gea",1,1,'R',true);
+        Fpdf::Ln(4);
+
 		Fpdf::SetFont('Courier', 'B', 18);
 		Fpdf::Cell(50, 25, 'Hello World!');
 		Fpdf::Output();
 		exit;
 	}
-
-    public function pay()
-    {
-        return view('payment.successpayment');
-    }
 }

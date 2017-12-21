@@ -144,6 +144,25 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 				'as' => 'admin.store'
 			]);
 
+			Route::get('admin/edit-product/{id}',[
+				'uses' => 'ProductController@edit',
+				'as' => 'admin.edit'
+			]);
+
+			Route::post('admin/edit-product/{id}',[
+				'uses' => 'ProductController@update',
+				'as' => 'admin.update'
+			]);
+
+			Route::get('admin/delete-product/{id}',[
+				'uses' => 'ProductController@delete',
+				'as' => 'admin.delete'
+			]);
+
+			Route::get('admin/edit-order/{id}',[
+				 
+			]);
+
 			Route::get('admin/home', [
 				'uses' => 'AdminController@home',
 				'as' => 'admin.home'
