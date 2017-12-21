@@ -5,7 +5,17 @@
 @endsection
 
 @section('content')
-<div class="container card" style="margin-left: 0px">	
+
+<div class="breadcrumb-holder">   
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Manage Product</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container card" style="margin-left: 15px">	
 		<div class="card-body">	
 			<div class="row">
 				<div class="col-sm-4">

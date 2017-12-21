@@ -154,4 +154,9 @@ class ProductController extends Controller
 		Fpdf::Output();
 		exit;
 	}
+
+    public function pay()
+    {
+        return view('payment.successpayment');
+    }
 }

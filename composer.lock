@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6ae6e9b95b49cff9a8b20c3a1fccaa6",
+    "content-hash": "95cacc641e49ee73422bd48dee41685a",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -59,48 +59,6 @@
                 "preload"
             ],
             "time": "2017-12-10T11:40:39+00:00"
-        },
-        {
-            "name": "codedge/laravel-fpdf",
-            "version": "1.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/codedge/laravel-fpdf.git",
-                "reference": "646f4d8d4763896e60e3022fb29d27abceec79da"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/codedge/laravel-fpdf/zipball/646f4d8d4763896e60e3022fb29d27abceec79da",
-                "reference": "646f4d8d4763896e60e3022fb29d27abceec79da",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "5.*",
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Codedge\\Fpdf\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Holger Lösken",
-                    "email": "holger.loesken@codedge.de"
-                }
-            ],
-            "description": "Laravel 5 package for use with Fpdf. It ships with Fpdf 1.81.",
-            "keywords": [
-                "fpdf",
-                "laravel",
-                "pdf"
-            ],
-            "time": "2017-06-02T21:38:56+00:00"
         },
         {
             "name": "crocodicstudio/dokularavel",
@@ -1319,16 +1277,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.4.1",
+            "version": "v3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "ca20b8f9ef149f40ff656d52965f240d85f7a8e4"
+                "reference": "b869cbf8a15ca6261689de2c28a7d7f2d0706835"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/ca20b8f9ef149f40ff656d52965f240d85f7a8e4",
-                "reference": "ca20b8f9ef149f40ff656d52965f240d85f7a8e4",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/b869cbf8a15ca6261689de2c28a7d7f2d0706835",
+                "reference": "b869cbf8a15ca6261689de2c28a7d7f2d0706835",
                 "shasum": ""
             },
             "require": {
@@ -1378,7 +1336,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-09T14:14:31+00:00"
+            "time": "2017-12-14T19:40:10+00:00"
         },
         {
             "name": "symfony/finder",
@@ -2034,43 +1992,7 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "anouar/fpdf",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:xroot/laravel-fpdf.git",
-                "reference": "master"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/xroot/laravel-fpdf/zipball/master",
-                "reference": "master",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~5.0",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Anouar\\Fpdf": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Anouar",
-                    "email": "dtekind@gmail.com"
-                }
-            ],
-            "description": "Fpdf allows to generate PDF files",
-            "time": "2015-03-30T12:59:05+00:00"
-        },
+        
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",

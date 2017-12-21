@@ -48,7 +48,10 @@ Route::get('/pdf', [
 	'as' => 'product.pdf'
 ]);
 
-
+Route::get('/payment', [
+	'uses' => 'ProductController@pay',
+	'as' => 'pay'
+]);
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 	Route::group(['middleware' => 'guest'], function() {
@@ -127,6 +130,22 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 				'uses' => 'ProductController@store',
 				'as' => 'admin.store'
 			]);
+
+			Route::get('admin/home', [
+				'uses' => 'AdminController@home',
+				'as' => 'admin.home'
+			]);
+
+			Route::get('admin/orders', [
+				'uses' => 'AdminController@getOrders',
+				'as' => 'admin.orders'
+			]);
+
+			Route::get('admin/users', [
+				'uses' => 'AdminController@getUsers',
+				'as' => 'admin.users'
+			]);
+		
 		});
 
 		Route::get('logout', [
