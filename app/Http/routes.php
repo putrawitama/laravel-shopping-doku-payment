@@ -27,10 +27,9 @@ Route::get('/shopping-cart', [
 	'as' => 'product.shoppingCart'
 ]);
 
-Route::get('/checkout', [
-	'uses' => 'ProductController@getCheckout',
-	'as' => 'checkout',
-	'middleware' => 'auth'
+Route::get('/emptyCart', [
+	'uses' => 'ProductController@getCartDelete',
+	'as' => 'product.deleteCart'
 ]);
 
 Route::post('/redirect', [
@@ -51,6 +50,12 @@ Route::get('/pdf', [
 Route::get('/payment', [
 	'uses' => 'ProductController@pay',
 	'as' => 'pay'
+]);
+
+Route::get('/checkout', [
+	'uses' => 'ProductController@getCheckout',
+	'as' => 'checkout',
+	'middleware' => 'auth'
 ]);
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
@@ -90,6 +95,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 			'as' => 'signin'
 		]);
 	});
+	
 
 	Route::group(['middleware' => 'auth'], function() {
 		Route::group(['middleware' => 'user'], function(){
