@@ -89,7 +89,7 @@ class ProductController extends Controller
 
         $data = [
             'email' => $user->email,
-            'name' => $user->name,
+            'name' => $user->fullname,
             'total' => number_format($total, 2, ".", ""),
             'WORDS' => sha1($total . $this->mallid . $this->skey . $tmerchant),
             'amount' => number_format($total, 2, ".", ""),
