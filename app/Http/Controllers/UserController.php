@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Order;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -264,7 +265,9 @@ class UserController extends Controller
 	}
 
 	public function getTransactions(){
-		return view('user.transactions');
+		$orders = Order::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+		return view('user.transactions', ['orders' => $orders]);
+		// dd($orders);
 	}
 
     public function getLogout()
