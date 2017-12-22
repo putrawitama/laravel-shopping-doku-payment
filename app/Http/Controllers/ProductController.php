@@ -213,9 +213,6 @@ class ProductController extends Controller
 	
 	public function pdf(){
 
-        $oldCart = Session::get('cart');
-        $cart = new Cart($oldCart);
-
 		Fpdf::AddPage();
 
         //set font to arial, bold, 14pt
@@ -223,7 +220,7 @@ class ProductController extends Controller
 
         //Cell(width , height , text , border , end line , [align] )
 
-        Fpdf::Cell(130 ,5,'GEMUL APPLIANCES.CO',0,0);
+        Fpdf::Cell(130 ,5,'JUDULPEDIA',0,0);
         Fpdf::Cell(59 ,5,'INVOICE',0,1);//end of line
 
         //set font to arial, regular, 12pt
@@ -276,31 +273,20 @@ class ProductController extends Controller
         Fpdf::SetFont('Arial','',12);
 
         //Numbers are right-aligned so we give 'R' after new line parameter
-        
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        // ['products' => $cart->items, 'totalPrice' => $cart->totalPrice];
+
         foreach ($cart as $cart) {
-            Fpdf::Cell(130 ,5,'{{ $cart->items }}',1,0);
+            // Fpdf::Cell(130 ,5,"$product['item']['title']",1,0);
+            Fpdf::Cell(130 ,5,"Product",1,0);
             Fpdf::Cell(25 ,5,'-',1,0);
             Fpdf::Cell(34 ,5,'1.000',1,1,'R');//end of line
         }
 
         //summary
         Fpdf::Cell(130 ,5,'',0,0);
-        Fpdf::Cell(25 ,5,'Subtotal',0,0);
-        Fpdf::Cell(4 ,5,'$',1,0);
-        Fpdf::Cell(30 ,5,'4,450',1,1,'R');//end of line
-
-        Fpdf::Cell(130 ,5,'',0,0);
-        Fpdf::Cell(25 ,5,'Taxable',0,0);
-        Fpdf::Cell(4 ,5,'$',1,0);
-        Fpdf::Cell(30 ,5,'0',1,1,'R');//end of line
-
-        Fpdf::Cell(130 ,5,'',0,0);
-        Fpdf::Cell(25 ,5,'Tax Rate',0,0);
-        Fpdf::Cell(4 ,5,'$',1,0);
-        Fpdf::Cell(30 ,5,'10%',1,1,'R');//end of line
-
-        Fpdf::Cell(130 ,5,'',0,0);
-        Fpdf::Cell(25 ,5,'Total Due',0,0);
+        Fpdf::Cell(25 ,5,'Total',0,0);
         Fpdf::Cell(4 ,5,'$',1,0);
         Fpdf::Cell(30 ,5,'4,450',1,1,'R');//end of line
 
