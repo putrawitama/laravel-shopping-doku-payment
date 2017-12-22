@@ -96,14 +96,29 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
 				'as' => 'profile'
 			]);
 
+			Route::get('transactions', [
+				'uses' => 'UserController@getTransactions',
+				'as' => 'transactions'
+			]);
+
 			Route::get('edit-profile', [
 				'uses' => 'UserController@editProfile',
 				'as' => 'edit-profile'
 			]);
 
+			Route::get('remove-picture', [
+				'uses' => 'UserController@removePicture',
+				'as' => 'remove-picture'
+			]);
+
 			Route::get('user-setting', [
 				'uses' => 'UserController@getSetting',
 				'as' => 'setting'
+			]);
+
+			Route::post('update-pass', [
+				'uses' => 'UserController@updatePass',
+				'as' => 'update-pass'
 			]);
 
 			Route::post('update-profile-picture', [
