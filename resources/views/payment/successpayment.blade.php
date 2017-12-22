@@ -9,7 +9,7 @@
 		<h5>Harap bersabar menunggu barang datang</h5>
 		<img class="img-fluid" src="{{ asset('img/centang.png') }}" alt="Success Payment" style="margin-top: 30px; width: 25%">
 		<br>
-		<a href="" class="btn btn-success" style="padding: 10px 40px 5px 40px; margin-top: 30px"><h3>Done!</h3></a>
+		<a href="{{route('product.index')}}" class="btn btn-success" style="padding: 10px 40px 5px 40px; margin-top: 30px"><h3>Done!</h3></a>
 	</div>
 </div>
 
