@@ -223,23 +223,20 @@ class ProductController extends Controller
         Fpdf::Cell(130 ,5,'JUDULPEDIA',0,0);
         Fpdf::Cell(59 ,5,'INVOICE',0,1);//end of line
 
+        $user = Auth::user();
         //set font to arial, regular, 12pt
         Fpdf::SetFont('Arial','',12);
 
-        Fpdf::Cell(130 ,5,'[Street Address]',0,0);
+        Fpdf::Cell(130 ,5,$user->address,0,0);
         Fpdf::Cell(59 ,5,'',0,1);//end of line
-
-        Fpdf::Cell(130 ,5,'[City, Country, ZIP]',0,0);
+        Fpdf::Cell(130 ,5,$user->city.', '.$user->country.', '.$user->zipcode,0,0);
         Fpdf::Cell(25 ,5,'Date',0,0);
-        Fpdf::Cell(34 ,5,'[dd/mm/yyyy]',0,1);//end of line
+        Fpdf::Cell(34 ,5, \Carbon\Carbon::now()->format('d M Y'),0,1);//end of line
 
-        Fpdf::Cell(130 ,5,'Phone [+12345678]',0,0);
+        $invoice = Order::orderBy('id', 'desc')->first();
+        Fpdf::Cell(130 ,5,'Phone '.$user->phone,0,0);
         Fpdf::Cell(25 ,5,'Invoice #',0,0);
-        Fpdf::Cell(34 ,5,'[1234567]',0,1);//end of line
-
-        Fpdf::Cell(130 ,5,'Fax [+12345678]',0,0);
-        Fpdf::Cell(25 ,5,'Customer ID',0,0);
-        Fpdf::Cell(34 ,5,'[1234567]',0,1);//end of line
+        Fpdf::Cell(34 ,5,$invoice['id']+1,0,1);//end of line
 
         //make a dummy empty cell as a vertical spacer
         Fpdf::Cell(189 ,10,'',0,1);//end of line
@@ -249,16 +246,13 @@ class ProductController extends Controller
 
         //add dummy cell at beginning of each line for indentation
         Fpdf::Cell(10 ,5,'',0,0);
-        Fpdf::Cell(90 ,5,'[Name]',0,1);
+        Fpdf::Cell(90 ,5,$user->fullname,0,1);
 
         Fpdf::Cell(10 ,5,'',0,0);
-        Fpdf::Cell(90 ,5,'[Company Name]',0,1);
+        Fpdf::Cell(90 ,5,$user->city.', '.$user->country.', '.$user->zipcode,0,1);
 
         Fpdf::Cell(10 ,5,'',0,0);
-        Fpdf::Cell(90 ,5,'[Address]',0,1);
-
-        Fpdf::Cell(10 ,5,'',0,0);
-        Fpdf::Cell(90 ,5,'[Phone]',0,1);
+        Fpdf::Cell(90 ,5,$user->phone,0,1);
 
         //make a dummy empty cell as a vertical spacer
         Fpdf::Cell(189 ,10,'',0,1);//end of line
@@ -273,22 +267,30 @@ class ProductController extends Controller
         Fpdf::SetFont('Arial','',12);
 
         //Numbers are right-aligned so we give 'R' after new line parameter
+        if (!Session::has('cart')) {
+            return redirect()->route('product.index');
+        }
+
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
+        $products = $cart->items;
+        $totalPrice = $cart->totalPrice;
+
         // ['products' => $cart->items, 'totalPrice' => $cart->totalPrice];
 
-        foreach ($cart as $cart) {
-            // Fpdf::Cell(130 ,5,"$product['item']['title']",1,0);
-            Fpdf::Cell(130 ,5,"Product",1,0);
+        foreach ($products as $product) {
+            // dd($product['item']['title']);
+            Fpdf::Cell(130 ,5,$product['item']['title'],1,0);
+            //Fpdf::Cell(130 ,5,"Product",1,0);
             Fpdf::Cell(25 ,5,'-',1,0);
-            Fpdf::Cell(34 ,5,'1.000',1,1,'R');//end of line
+            Fpdf::Cell(34 ,5,$product['price'],1,1,'R');//end of line
         }
 
         //summary
         Fpdf::Cell(130 ,5,'',0,0);
         Fpdf::Cell(25 ,5,'Total',0,0);
         Fpdf::Cell(4 ,5,'$',1,0);
-        Fpdf::Cell(30 ,5,'4,450',1,1,'R');//end of line
+        Fpdf::Cell(30 ,5,$totalPrice,1,1,'R');//end of line
 
 		Fpdf::Output();
 		exit;
