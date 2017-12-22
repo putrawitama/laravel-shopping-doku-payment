@@ -9,7 +9,7 @@
 		<h5>Mohon lakukan kembali</h5>
 		<img class="img-fluid" src="{{ asset('img/failed.png') }}" alt="Success Payment" style="margin-top: 30px; width: 25%">
 		<br>
-		<a href="" class="btn btn-danger" style="padding: 10px 40px 5px 40px; margin-top: 30px"><h3>Back!</h3></a>
+		<a href="{{route('product.index')}}" class="btn btn-danger" style="padding: 10px 40px 5px 40px; margin-top: 30px"><h3>Back!</h3></a>
 	</div>
 </div>
 
