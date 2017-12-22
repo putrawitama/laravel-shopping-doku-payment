@@ -142,8 +142,6 @@ class ProductController extends Controller
 
         if ( $all['WORDS'] == $WORDS_GENERATED )
         {   
-                    
-
             echo "CONTINUE";
             if ($all['RESULTMSG'] == 'SUCCESS'){
                     //$req->session()->put('status', 'Payment Success');
@@ -214,6 +212,10 @@ class ProductController extends Controller
     }
 	
 	public function pdf(){
+
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+
 		Fpdf::AddPage();
 
         //set font to arial, bold, 14pt
@@ -274,18 +276,12 @@ class ProductController extends Controller
         Fpdf::SetFont('Arial','',12);
 
         //Numbers are right-aligned so we give 'R' after new line parameter
-
-        Fpdf::Cell(130 ,5,'UltraCool Fridge',1,0);
-        Fpdf::Cell(25 ,5,'-',1,0);
-        Fpdf::Cell(34 ,5,'3,250',1,1,'R');//end of line
-
-        Fpdf::Cell(130 ,5,'Supaclean Diswasher',1,0);
-        Fpdf::Cell(25 ,5,'-',1,0);
-        Fpdf::Cell(34 ,5,'1,200',1,1,'R');//end of line
-
-        Fpdf::Cell(130 ,5,'Something Else',1,0);
-        Fpdf::Cell(25 ,5,'-',1,0);
-        Fpdf::Cell(34 ,5,'1,000',1,1,'R');//end of line
+        
+        foreach ($cart as $cart) {
+            Fpdf::Cell(130 ,5,'{{ $cart->items }}',1,0);
+            Fpdf::Cell(25 ,5,'-',1,0);
+            Fpdf::Cell(34 ,5,'1.000',1,1,'R');//end of line
+        }
 
         //summary
         Fpdf::Cell(130 ,5,'',0,0);
